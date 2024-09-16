@@ -48,7 +48,7 @@ class _ChatPageState extends State<ChatPage> {
         title: const CustomText(
           label: "XetzGPT",
           fontWeight: FontWeight.w500,
-          fontSize: 30,
+          fontSize: 25,
         ),
       ),
       body: SafeArea(
