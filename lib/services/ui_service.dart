@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xetzgpt/widgets/drop_down.dart';
 import '../widgets/custom_text.dart';
 
 class UiService {
@@ -14,8 +15,19 @@ class UiService {
           return const Padding(
             padding: EdgeInsets.all(18.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CustomText(label: "Chosen Model: "),
+                Flexible(
+                    child: CustomText(
+                  label: "Chosen Model: ",
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                )),
+                SizedBox(width: 10),
+                Flexible(
+                  flex: 2,
+                  child: ModalsDropDownWidget(),
+                )
               ],
             ),
           );

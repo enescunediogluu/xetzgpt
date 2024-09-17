@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:xetzgpt/widgets/custom_text.dart';
+
 final chatMessages = [
   {
     "msg": "Hello",
@@ -35,3 +38,21 @@ final chatMessages = [
     "chatIndex": 1,
   }
 ];
+
+List<String> models = [
+  "model_1", // Add model_1 here
+  "model_2",
+  "model_3",
+  "model_4",
+];
+
+List<DropdownMenuItem<String>>? get getModelsItems {
+  List<DropdownMenuItem<String>> modelItems =
+      List<DropdownMenuItem<String>>.generate(
+          models.length,
+          (index) => DropdownMenuItem(
+                value: models[index],
+                child: CustomText(label: models[index]),
+              ));
+  return modelItems;
+}

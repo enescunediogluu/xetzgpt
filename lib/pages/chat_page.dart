@@ -1,8 +1,11 @@
 // ignore_for_file: prefer_final_fields
 
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:xetzgpt/constants/colors.dart';
+import 'package:xetzgpt/constants/constants.dart';
+import 'package:xetzgpt/services/api_service.dart';
 import 'package:xetzgpt/services/color_palette.dart';
 import 'package:xetzgpt/services/ui_service.dart';
 import 'package:xetzgpt/widgets/chat_widget.dart';
@@ -97,7 +100,13 @@ class _ChatPageState extends State<ChatPage> {
                       ),
                     ),
                     IconButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        try {
+                          await ApiService.getModels();
+                        } catch (error) {
+                          log("error : $error");
+                        }
+                      },
                       icon: const Icon(Icons.send),
                     )
                   ],
