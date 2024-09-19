@@ -11,7 +11,7 @@ To test this app:
 <br>
 1) First clone the project.
 ```
-git clone https://github.com/enescunediogluu/xetzgpt-ai-chat-app.git
+git clone https://github.com/enescunediogluu/xetzgpt.git
 ```
 
 2) On project folder, run this command to install packages
