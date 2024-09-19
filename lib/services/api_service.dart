@@ -1,38 +1,39 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
-
 import 'package:http/http.dart' as http;
-import 'package:http/http.dart';
+
 import 'package:xetzgpt/constants/api_consts.dart';
-import 'package:xetzgpt/models/models_model.dart';
+import 'package:xetzgpt/models/chat_model.dart';
 
 class ApiService {
-  static Future<List<ModelsModel>> getModels() async {
-    // Fetch models from the server
+  //our app uses text complete api of gemini-1.5-flash model
+  static Future<ChatModel?> textCompleteRequest(
+    List<ChatModel> previousMessages,
+  ) async {
+    final url = Uri.parse('$baseUrl$myApiKey');
+
+    final headers = {
+      'Content-Type': 'application/json',
+    };
+
+    final body = jsonEncode({
+      "contents": previousMessages.map((message) => message.toJson()).toList()
+    });
+
     try {
-      Response response = await http.get(
-        Uri.parse("$BASE_URL/models"),
-        headers: {"Authorization": "Bearer $MY_API_KEY"},
-      );
-
-      Map jsonResponse = jsonDecode(response.body);
-
-      if (jsonResponse['error'] != null) {
-        throw HttpException(jsonResponse['error']['message']);
+      log(body.toString());
+      final response = await http.post(url, headers: headers, body: body);
+      if (response.statusCode == 200) {
+        ChatModel respondedChat = ChatModel.fromJson(jsonDecode(response.body));
+        return respondedChat;
+      } else {
+        final responseData = jsonDecode(response.body);
+        log('Request failed with status: ${response.statusCode} ${responseData['error']['message']}');
+        return null;
       }
-
-      List temp = [];
-
-      for (var value in jsonResponse['data']) {
-        temp.add(value);
-        log("value: ${value['object']}");
-      }
-
-      return ModelsModel.modelsFromSnapshot(temp);
-    } catch (error) {
-      log("error : $error");
-      rethrow;
+    } catch (e) {
+      log('Error: $e');
+      return null;
     }
   }
 }

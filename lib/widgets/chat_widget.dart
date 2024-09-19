@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:xetzgpt/services/assets_manager.dart';
 import 'package:xetzgpt/services/color_palette.dart';
-import 'package:xetzgpt/widgets/custom_text.dart';
+import 'package:xetzgpt/widgets/custom_text_widget.dart';
 
 class ChatWidget extends StatelessWidget {
   final String message;
@@ -20,7 +20,7 @@ class ChatWidget extends StatelessWidget {
         child: Container(
           child: chatIndex == 0
               ? UserMessage(chatIndex: chatIndex, message: message)
-              : GptMessage(message: message, chatIndex: chatIndex),
+              : GeminiMessage(message: message, chatIndex: chatIndex),
         ),
       ),
     );
@@ -46,14 +46,23 @@ class UserMessage extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: ColorPalette.icedBlue,
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              tileMode: TileMode.repeated,
+              colors: [
+                ColorPalette.icedBlue,
+                ColorPalette.geminiPurple,
+              ],
+            ),
             borderRadius: BorderRadius.circular(10),
           ),
           constraints: BoxConstraints(
             maxWidth: MediaQuery.of(context).size.width *
                 0.75, // Set the maximum width for the container
           ),
-          child: CustomText(
+          child: CustomTextWidget(
+            selectable: true,
             label: message,
             color: ColorPalette.primaryColor,
           ),
@@ -63,10 +72,10 @@ class UserMessage extends StatelessWidget {
   }
 }
 
-class GptMessage extends StatelessWidget {
+class GeminiMessage extends StatelessWidget {
   final String message;
   final int chatIndex;
-  const GptMessage({
+  const GeminiMessage({
     super.key,
     required this.message,
     required this.chatIndex,
@@ -78,7 +87,7 @@ class GptMessage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Image.asset(
-          chatIndex == 0 ? AssetsManager.userLogo : AssetsManager.gptLogo,
+          AssetsManager.geminiIcon,
           height: 30,
           width: 30,
         ),
@@ -86,7 +95,10 @@ class GptMessage extends StatelessWidget {
           width: 12,
         ),
         Expanded(
-          child: CustomText(label: message),
+          child: CustomTextWidget(
+            label: message,
+            selectable: true,
+          ),
         ),
       ],
     );
