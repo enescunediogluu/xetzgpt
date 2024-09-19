@@ -1,16 +1,29 @@
-# xetzgpt
+# XetzGPT Chat App
+<br>
+<img src='https://firebasestorage.googleapis.com/v0/b/hunted-village.appspot.com/o/Frame%20470.png?alt=media&token=dc5e2b79-a2ef-405c-8653-283ff328207c'>
 
-A new Flutter project.
+I have built a simple chat app that uses Gemini LLM model that can be used for 
+reaching information as fast as possible. I have learned too much while doing this project. 
+I have used provider for state management and used Postman for api testing purposes. 
+<br>
 
-## Getting Started
+To test this app:
+<br>
+1) First clone the project.
+```
+git clone https://github.com/enescunediogluu/xetzgpt-ai-chat-app.git
+```
 
-This project is a starting point for a Flutter application.
+2) On project folder, run this command to install packages
+```
+flutter pub get
+```
 
-A few resources to get you started if this is your first Flutter project:
+3) You need to get your own API_KEY from [Gemini Api](https://ai.google.dev/)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4) Paste the api key in /lib/constants/api_consts.dart
+```
+const myApiKey = "YOUR_API_KEY_HERE";
+const baseUrl =
+    'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=';
+```
